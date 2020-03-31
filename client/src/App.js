@@ -10,8 +10,13 @@ import Profile from './Profile';
 import TweetDetails from './TweetDetails';
 import Sidebar from './Sidebar';
 
+import {CurrentUserContext} from './CurrentUserContext';
 
 const App = () => {
+  const {userState, actions: {changeUser, changeStatus,}} = React.useContext(CurrentUserContext);
+
+  //if status is loading else 
+
   return (
     <>
     <GlobalStyles />

@@ -8,7 +8,7 @@ import {gitlab} from 'react-icons-kit/feather/gitlab';
 import {bell} from 'react-icons-kit/feather/bell';
 import {bookmark} from 'react-icons-kit/feather/bookmark';
 
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo1.svg';
 import {COLORS} from '../constants';
 
 const Sidebar = () => {

@@ -7,15 +7,16 @@ import {home} from 'react-icons-kit/feather/home';
 import {gitlab} from 'react-icons-kit/feather/gitlab';
 import {bell} from 'react-icons-kit/feather/bell';
 import {bookmark} from 'react-icons-kit/feather/bookmark';
+// import {loader} from 'react-icons-kit/feather/loader';
 
-import compass from '../assets/compass.svg';
+import logo1 from '../assets/logo1.svg';
 import {COLORS} from '../constants';
 
 const Sidebar = () => {
 
   return (
     <StyledWrapper>
-      <StyledLogo src={compass} aria-label='cat logo'/>
+      <StyledLogo src={logo1} aria-label='cat logo'/>
       <StyledLink exact to={'/'}><StyledIcon size={24} icon={home} /> 
       Home</StyledLink>
       <StyledLink to={'/currentuserprofile'}><StyledIcon size={24} icon={gitlab} /> 
@@ -41,8 +42,8 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledLogo = styled.img`
-  margin: 0 auto 1.5rem 0;
-  padding: 0 .75rem;
+  margin: 0 auto 1rem 0;
+  /* padding: 0 .75rem 0 0; */
 `;
 
 const StyledLink = styled(NavLink)`

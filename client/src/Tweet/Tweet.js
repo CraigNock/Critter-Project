@@ -3,32 +3,47 @@ import styled from 'styled-components';
 import { format } from 'date-fns';
 
 import ActionBar from '../ActionBar';
+// import TweetDetails from '../TweetDetails';
 
 
 const Tweet = (data) => {
   let info = data.data;
-  // console.log('data ', info);
-  let date = format(new Date(info.timestamp), 'MMM Do');
+  console.log('data ', info);
   return (
-    <StyledDiv>
-      <Avatar><img src={info.author.avatarSrc} alt='avatar'/></Avatar>
-      <SubDiv>
-        <Handle>
-          <span>{info.author.displayName}</span>
-          @ {info.author.handle} | {date}
-        </Handle>
-        <Content>
-          <p>{info.status}</p>
-          {info.media.map(thing => {
-            return <img key={thing.url} src={thing.url} alt='thing'/>
-          })}
-          
-        </Content>
-        <ActionBar/>
-      </SubDiv>
-    </StyledDiv>
+    <>
+    {info.tweetIds.map(id => {
+      let details = info.tweetsById[id];
+      let date = format(new Date(details.timestamp), 'MMM Do');
+      return(
+      <StyledDiv key={id}>
+        <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
+        <SubDiv>
+          <Handle>
+            <span>{details.author.displayName}</span>
+            @ {details.author.handle} | {date}
+          </Handle>
+          <Content>
+            <p>{details.status}</p>
+            {details.media.map(thing => {
+              return <img key={thing.url} src={thing.url} alt='thing'/>
+            })}
+            
+          </Content>
+          <ActionBar
+            numLikes={details.numLikes}
+            numRetweets={details.numRetweets}
+            isliked={details.isLiked}
+            isRetweeted={details.isRetweeted}
+          />
+        </SubDiv>
+      </StyledDiv>
+      )
+    })}
+    </>
   )
 };
+
+//
 
 const StyledDiv = styled.div`
   display: flex;

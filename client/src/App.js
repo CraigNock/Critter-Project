@@ -27,19 +27,13 @@ const App = () => {
   }, []);
 
 
-  if (userState.currentStatus === 'loading') {
-    return (
-      <LoadingDiv>
-        Loading...
-      </LoadingDiv>
-    )
-  } else {
     return (
       <>
       <GlobalStyles />
       <StyledWrapper>
         <BrowserRouter>
         <Sidebar />
+        {userState.currentStatus === 'loading'? <LoadingDiv>Loading...</LoadingDiv>:
           <Switch>
             <Route exact path='/'>
               <Homefeed />
@@ -57,12 +51,11 @@ const App = () => {
               <Profile />
             </Route>
           </Switch>
+        }
         </BrowserRouter>
       </StyledWrapper>
       </>
     );
-  };
-
 };
 
 const StyledWrapper = styled.div`

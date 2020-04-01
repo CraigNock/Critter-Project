@@ -3,11 +3,15 @@ import styled from 'styled-components';
 
 const TweetDetails = () => {
   return (
-    <div>
+    <StyledDiv>
       TweetDetails
-    </div>
+    </StyledDiv>
   );
 };
 
+const StyledDiv = styled.div`
+
+
+`;
 
 export default TweetDetails;

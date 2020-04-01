@@ -3,11 +3,14 @@ import styled from 'styled-components';
 
 const Bookmarks = () => {
   return (
-    <div>
+    <StyledDiv>
       Bookmarks
-    </div>
+    </StyledDiv>
   );
 };
 
+const StyledDiv = styled.div`
+
+`;
 
 export default Bookmarks;

@@ -43,16 +43,16 @@ export const CurrentUserProvider = ({children}) => {
     })
   }
 
-  React.useEffect( () => {
-    fetch('/api/me/profile')
-      .then(data => data.json())
-      .then(data => {
-        console.log('current user ', data.profile);
-        changeUser(data.profile);
-        changeStatus('idle');
-      })
+  // React.useEffect( () => {
+  //   fetch('/api/me/profile')
+  //     .then(data => data.json())
+  //     .then(data => {
+  //       console.log('current user ', data.profile);
+  //       changeUser(data.profile);
+  //       changeStatus('idle');
+  //     })
 
-  }, []);
+  // }, []);
 
   return(
     <CurrentUserContext.Provider

@@ -3,11 +3,14 @@ import styled from 'styled-components';
 
 const Notifications = () => {
   return (
-    <div>
+    <StyledDiv>
       Notifications
-    </div>
+    </StyledDiv>
   );
 };
 
+const StyledDiv = styled.div`
+
+`;
 
 export default Notifications;

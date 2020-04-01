@@ -3,11 +3,15 @@ import styled from 'styled-components';
 
 const Profile = () => {
   return (
-    <div>
+    <StyledDiv>
       Profile
-    </div>
+    </StyledDiv>
   );
 };
+
+const StyledDiv = styled.div`
+
+`;
 
 
 export default Profile;

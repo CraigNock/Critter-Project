@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
@@ -37,6 +37,7 @@ export default createGlobalStyle`
     padding: 0;
     border: 0;
     vertical-align: baseline;
+    font-family: sans-serif;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -58,9 +59,9 @@ export default createGlobalStyle`
 
   body {
     line-height: 1.25;
-    background: #222;
-    color: white;
-    font-family: 'Sans-Serif','Roboto'
+    background: whitesmoke;
+    color: black;
+    font-family: sans-serif;
   }
 
 

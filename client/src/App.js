@@ -38,6 +38,9 @@ const App = () => {
             <Route exact path='/'>
               <Homefeed />
             </Route>
+            <Route path='/:profileId/tweets'>
+              <Profile />
+            </Route>
             <Route path='/notifications'>
               <Notifications />
             </Route>
@@ -46,9 +49,6 @@ const App = () => {
             </Route>
             <Route path='/tweet/:tweetId'>
               <TweetDetails />
-            </Route>
-            <Route path='/:profileId'>
-              <Profile />
             </Route>
           </Switch>
         }

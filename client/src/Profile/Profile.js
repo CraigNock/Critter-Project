@@ -2,7 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import {useParams} from 'react-router-dom';
 // import {NavLink} from 'react-router-dom';
+import { format } from 'date-fns';
+
+import { Icon } from 'react-icons-kit';
+import {mapPin} from 'react-icons-kit/feather/mapPin'
+import {calendar} from 'react-icons-kit/feather/calendar'
+
 import {CurrentUserContext} from '../CurrentUserContext';
+import FeedProfile from '../FeedProfile';
+
+import {COLORS} from '../constants';
+
 
 const Profile = () => {
   const {profileId} = useParams();
@@ -29,12 +39,25 @@ const Profile = () => {
       <CoverImage src={userProfile.bannerSrc} alt='banner'/>
       <Avatar src={userProfile.avatarSrc} alt='avatar'/>
       <InfoDiv>
-
+        <ButtonDiv>
+          {userProfile.isBeingFollowedByYou? 
+          <button>Unfollow</button> : 
+          <button disabled={profileId === 'currentuserprofile'}>Follow</button>}
+        </ButtonDiv>
+        <Handle>
+          <p>{userProfile.displayName}</p>
+          @{userProfile.handle} {userProfile.isFollowingYou? <span>Is following you</span> : null}
+        </Handle>
+        <p></p>
+        <p>{userProfile.bio}</p>
+        <Locale>
+          <StyledIcon icon={mapPin} /> {userProfile.location} 
+          <span><StyledIcon icon={calendar} /> Joined {format(new Date(userProfile.joined), 'MMMM · yyyy')}</span>
+        </Locale>
+        <Follow><span>{1}</span> Following <span>{1}</span> Followers</Follow>
       </InfoDiv>
-      <SectionBar>
-        
-      </SectionBar>
-      <TweetFeed/>
+      
+      <FeedProfile profile={profileId} />
     </StyledDiv>
   );
 };
@@ -61,15 +84,72 @@ const Avatar = styled.img`
   height: 10rem;
   border-radius: 50%;
 `;
+const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin: 1.5rem 1rem;
+    color: white;
+    font-size: 1rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    background: ${COLORS.primary};
+    border: none;
+    border-radius: 25px;
+    padding: .75rem 1rem;
+    &:focus {
+      outline: none;
+    };
+    &:disabled {
+      opacity: .25;
+    }
+  }
+`;
 const InfoDiv = styled.div`
-
+  padding: 0 1rem;
+  
 `;
-const SectionBar = styled.div`
-
+const Handle = styled.div`
+  margin: .5rem 0;
+  font-style: italic;
+  font-size: 1rem;
+  color: grey;
+  p {
+    font-style: initial;
+    font-size: 1.5rem;
+    color:black;
+    font-weight:bold;
+  }
+  span {
+    background: lightgray;
+    border-radius: 10px;
+  }
 `;
-const TweetFeed = styled.div`
-
+const Locale = styled.p`
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: grey;
+  span {
+    margin-left: 1rem;
+  }
 `;
+const StyledIcon = styled(Icon)`
+  vertical-align: 12%;
+  
+`;
+const Follow = styled.p`
+  margin-bottom: 1rem;
+  color: grey;
+  span {
+    color: black;
+    font-weight: bold;
+    
+  }
+  & :last-child {
+    margin-left: 1rem;
+  }
+`;
+
 
 
 

@@ -8,14 +8,15 @@ import ActionBar from '../ActionBar';
 // import TweetDetails from '../TweetDetails';
 
 
-const Tweet = (data) => {
-  let info = data.data;
-  console.log('data ', info);
+const Tweet = ({data, filtero}) => {
+  let info = data;
+  // console.log('data ', info, filtero);
   return (
     <>
     {info.tweetIds.map(id => {
       let details = info.tweetsById[id];
       let date = format(new Date(details.timestamp), 'MMM do');
+      // if(filtero==='likes'){ if (details.isLiked) {
       return(
       <StyledDiv key={id}>
         <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>

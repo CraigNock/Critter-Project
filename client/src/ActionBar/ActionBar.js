@@ -14,9 +14,8 @@ const ActionBar = ({numLikes, numRetweets, isLiked, isRetweeted}) => {
 
   const [like, setLike] = React.useState(isLiked);
 
-  const toggleLike = () => {
-
-  };
+  // const toggleLike = () => {
+  // };
 
   return (
     <StyledBar>
@@ -46,6 +45,7 @@ const StyledBar = styled.div`
   width: 100%;
   span {
     font-size: .75rem;
+    margin-right:3rem;
   }
 `;
 const StyledIcon = styled(Icon)`
@@ -74,7 +74,7 @@ const StyledRetweet = styled(StyledIcon)`
 
 const StyledSpan = styled.span`
   margin-left: -2rem;
-  margin-right: 2rem;
+  /* margin-right: 4rem; */
 `;
 
 export default ActionBar;

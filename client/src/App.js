@@ -33,7 +33,7 @@ const App = () => {
       <StyledWrapper>
         <BrowserRouter>
         <Sidebar />
-        {userState.currentStatus === 'loading'? <LoadingDiv>Loading...</LoadingDiv>:
+        {userState.currentStatus === 'loading'? <StyledDiv><h2>Loading...</h2></StyledDiv>:
           <Switch>
             <Route exact path='/'>
               <Homefeed />
@@ -63,10 +63,14 @@ const StyledWrapper = styled.div`
 
 `;
 
-const LoadingDiv = styled.div`
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
+const StyledDiv = styled.div`
+  width: 100%;
+  margin-right: 5vw;
+  border-right: 1px solid lightgray;
+  h2 {
+    margin: .5rem 1rem ;
+    border-bottom: 1px solid lightgray;
+  }
 `;
 
 

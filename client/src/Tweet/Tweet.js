@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import {NavLink} from 'react-router-dom';
+
 
 import ActionBar from '../ActionBar';
 // import TweetDetails from '../TweetDetails';
@@ -13,7 +15,7 @@ const Tweet = (data) => {
     <>
     {info.tweetIds.map(id => {
       let details = info.tweetsById[id];
-      let date = format(new Date(details.timestamp), 'MMM Do');
+      let date = format(new Date(details.timestamp), 'MMM do');
       return(
       <StyledDiv key={id}>
         <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
@@ -22,13 +24,15 @@ const Tweet = (data) => {
             <span>{details.author.displayName}</span>
             @ {details.author.handle} | {date}
           </Handle>
-          <Content>
-            <p>{details.status}</p>
-            {details.media.map(thing => {
-              return <img key={thing.url} src={thing.url} alt='thing'/>
-            })}
-            
-          </Content>
+          <StyledNavLink to={`/tweet/${id}`}>
+            <Content>
+              <p>{details.status}</p>
+              {details.media.map(thing => {
+                return <img key={thing.url} src={thing.url} alt='thing'/>
+              })}
+              
+            </Content>
+          </StyledNavLink>
           <ActionBar
             numLikes={details.numLikes}
             numRetweets={details.numRetweets}
@@ -43,7 +47,10 @@ const Tweet = (data) => {
   )
 };
 
-//
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+`;
 
 const StyledDiv = styled.div`
   display: flex;
@@ -65,6 +72,9 @@ const SubDiv = styled.div`
   flex-direction: column;
   padding-right:1rem;
 `;
+
+
+
 const Handle = styled.p`
   margin-top: .5rem;
   font-style: italic;

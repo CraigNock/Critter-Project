@@ -13,14 +13,14 @@ import ActionBar from '../ActionBar';
 // import TweetDetails from '../TweetDetails';
 
 
-const Tweet = ({data, filtero}) => {
+const Tweet = ({data, filtero, setRefresh}) => {
   let info = data;
   console.log('data ', info, filtero);
 
 
   let history = useHistory();
 
-  const {actions: {changeViewing}} = React.useContext(CurrentUserContext);
+  const {actions: {changeStatus}} = React.useContext(CurrentUserContext);
 
   // const handleClick = (ev, profileId) => {
   //   ev.preventDefault();
@@ -46,8 +46,9 @@ const Tweet = ({data, filtero}) => {
           <TweetLink onClick={ev => history.push(`/tweet/${id}`)}>
           <Handle>
             <span tabIndex="0" onClick={ev => {
-              ev.stopPropagation(); 
-              changeViewing(details.author.handle);
+              ev.stopPropagation();
+              changeStatus('loading') 
+              // setRefresh(true);
               history.push(`/${details.author.handle}/tweets`);
               }} 
             >

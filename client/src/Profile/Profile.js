@@ -19,12 +19,14 @@ const Profile = () => {
   console.log('profileid ',profileId);
 
   const {userState} = React.useContext(CurrentUserContext);
+  
+  const [userProfile, setUserProfile] = React.useState(null);
 
-  const [userProfile, setUserProfile] = React.useState(userState.currentUser);
+  const [refresh , setRefresh] = React.useState(false);
   const [following, setFollowing] = React.useState('');
 
   React.useEffect(()=> {
-    if (profileId !== 'currentuserprofile')
+  (profileId === 'currentuserprofile')? setUserProfile(userState.currentUser):
     fetch( `/api/${profileId}/profile` )
     .then(data => data.json())
     .then(data => {
@@ -33,9 +35,9 @@ const Profile = () => {
       setFollowing(data.profile.isBeingFollowedByYou);
     });
 // eslint-disable-next-line
-  }, [userState.viewing])
-  //activate on [profileId]
-  console.log('userProfile ',userProfile);
+  }, [profileId])
+  //activate on [profileId]?
+  // console.log('userProfile ',userProfile);
 
   const toggleFollow = () => {
     // console.log('fol? ',following);
@@ -51,9 +53,12 @@ const Profile = () => {
       })
   };
 
+  console.log('test ', userProfile);
 
   return (
     <StyledDiv>
+    {userProfile? 
+    <>
       <CoverImage src={userProfile.bannerSrc} alt='banner'/>
       <Avatar src={userProfile.avatarSrc} alt='avatar'/>
       <InfoDiv>
@@ -78,7 +83,9 @@ const Profile = () => {
         <Follow><span>{userProfile.numFollowing}</span> Following <span>{userProfile.numFollowers}</span> Followers</Follow>
       </InfoDiv>
       
-      <FeedProfile profile={profileId} />
+      <FeedProfile profile={profileId} setRefresh={setRefresh} />
+      </>
+      : <div>lodo</div>}
     </StyledDiv>
   );
 };

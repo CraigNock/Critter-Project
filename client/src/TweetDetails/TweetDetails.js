@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import {useParams} from 'react-router-dom';
 import {NavLink} from 'react-router-dom';
 
-
+import Loading from '../Loading';
 import ActionBar from '../ActionBar';
 
 
@@ -26,14 +26,14 @@ const TweetDetails = () => {
   
   return (
     <>
-    {details===null? <StyledDivo><h2>Loading...</h2></StyledDivo> :
+    {details===null? <Loading /> :
     <StyledDivo>
       <StyledNavLink exact to={'/'}><h2>{"🢘 Meow"}</h2></StyledNavLink>
       <StyledDiv>
           <SubDiv>
           <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
             <Handle>
-              <p>{details.author.displayName}</p> 
+            <StyledNavLink to={`/${details.author.handle}/tweets`}><p>{details.author.displayName}</p></StyledNavLink>
               @ {details.author.handle} 
             </Handle>
           </SubDiv>
@@ -45,6 +45,7 @@ const TweetDetails = () => {
             </Content>
             <StyledDate>{format(new Date(details.timestamp), 'HH:mm a · MMM do yyyy')} · Critter Web App</StyledDate>
             <ActionBar
+              tweetId={details.id}
               numLikes={details.numLikes}
               numRetweets={details.numRetweets}
               isliked={details.isLiked}
@@ -71,6 +72,9 @@ const StyledDivo = styled.div`
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: black;
+  &:hover{
+    text-decoration: underline;
+  }
 `;
 const StyledDiv = styled.div`
   display: flex;

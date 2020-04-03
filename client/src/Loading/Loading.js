@@ -1,20 +1,39 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import { Icon } from 'react-icons-kit';
-import {lifeBuoy} from 'react-icons-kit/feather/lifeBuoy'
+import {box} from 'react-icons-kit/feather/box'
+// import {sun} from 'react-icons-kit/feather/sun'
+// import {loader} from 'react-icons-kit/feather/loader'
 
 
 const Loading = () => {
 
+
   return(
-    <>
-    <StyledIcon size={36}  icon={lifeBuoy} />
-    </>
+    <Idiv>
+      <StyledIcon size={50}  icon={box} />
+    </Idiv>
   )
 };
 
-const StyledIcon = styled(Icon)`
 
+const spinner = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const Idiv = styled.div`
+  text-align: center;
+  width: 100%;
+`;
+
+const StyledIcon = styled(Icon)`
+  margin: 2rem auto;
+  animation: ${spinner} linear 1000ms infinite;
 `;
 
 

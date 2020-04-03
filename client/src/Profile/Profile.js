@@ -8,6 +8,7 @@ import { Icon } from 'react-icons-kit';
 import {mapPin} from 'react-icons-kit/feather/mapPin'
 import {calendar} from 'react-icons-kit/feather/calendar'
 
+import Loading from '../Loading';
 import {CurrentUserContext} from '../CurrentUserContext';
 import FeedProfile from '../FeedProfile';
 
@@ -22,18 +23,23 @@ const Profile = () => {
   
   const [userProfile, setUserProfile] = React.useState(null);
 
-  const [refresh , setRefresh] = React.useState(false);
   const [following, setFollowing] = React.useState('');
 
   React.useEffect(()=> {
-  (profileId === 'currentuserprofile')? setUserProfile(userState.currentUser):
+
+  // if (profileId !== 'currentuserprofile'){
     fetch( `/api/${profileId}/profile` )
     .then(data => data.json())
     .then(data => {
-      // console.log('profile data ', data.profile);
+      console.log('profile data ', data.profile);
+
       setUserProfile(data.profile);
       setFollowing(data.profile.isBeingFollowedByYou);
     });
+  // } else {
+  //   console.log('user profileee ', userProfile)
+  //   setUserProfile(userState.currentUser)
+  // }
 // eslint-disable-next-line
   }, [profileId])
   //activate on [profileId]?
@@ -83,9 +89,9 @@ const Profile = () => {
         <Follow><span>{userProfile.numFollowing}</span> Following <span>{userProfile.numFollowers}</span> Followers</Follow>
       </InfoDiv>
       
-      <FeedProfile profile={profileId} setRefresh={setRefresh} />
+      <FeedProfile profile={profileId} />
       </>
-      : <div>lodo</div>}
+      : <Loading />}
     </StyledDiv>
   );
 };

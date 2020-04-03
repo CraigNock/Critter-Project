@@ -7,7 +7,7 @@ import TweetFeed from './TweetFeed';
 
 import {COLORS} from '../constants';
 
-const FeedProfile = ({profile, setRefresh}) => {
+const FeedProfile = ({profile}) => {
   console.log('feedprofile ', profile);
 
   return(
@@ -20,7 +20,7 @@ const FeedProfile = ({profile, setRefresh}) => {
       </SectionBar>
       <Switch>
         <Route path='/:profileId/:filter'>
-          <TweetFeed setRefresh={setRefresh}/>
+          <TweetFeed />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import TweetForm from '../TweetForm';
 import Tweet from '../Tweet';
-
+import Loading from '../Loading';
 
 
 const Homefeed = () => {
@@ -28,7 +28,7 @@ const Homefeed = () => {
   
   if (loading === 'loading') {
     return (
-      <StyledDiv><h2>Loading...</h2></StyledDiv>
+      <Loading />
       )
   } else {
     // console.log(feedData);
@@ -44,7 +44,7 @@ const Homefeed = () => {
 
 const StyledDiv = styled.div`
   width: 100%;
-  margin-right: 5vw;
+  margin-right: 5vw auto;
   border-right: 1px solid lightgray;
   h2 {
     margin: .5rem 1rem ;

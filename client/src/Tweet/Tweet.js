@@ -13,10 +13,9 @@ import ActionBar from '../ActionBar';
 // import TweetDetails from '../TweetDetails';
 
 
-const Tweet = ({data, filtero, setRefresh}) => {
+const Tweet = ({data, filtero}) => {
   let info = data;
   console.log('data ', info, filtero);
-
 
   let history = useHistory();
 
@@ -47,8 +46,8 @@ const Tweet = ({data, filtero, setRefresh}) => {
           <Handle>
             <span tabIndex="0" onClick={ev => {
               ev.stopPropagation();
-              changeStatus('loading') 
-              // setRefresh(true);
+              // changeStatus('loading'); 
+              
               history.push(`/${details.author.handle}/tweets`);
               }} 
             >

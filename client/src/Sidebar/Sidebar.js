@@ -8,19 +8,27 @@ import {gitlab} from 'react-icons-kit/feather/gitlab';
 import {bell} from 'react-icons-kit/feather/bell';
 import {bookmark} from 'react-icons-kit/feather/bookmark';
 // import {loader} from 'react-icons-kit/feather/loader';
+import Loading from '../Loading';
+
+import {CurrentUserContext} from '../CurrentUserContext';
 
 import logo1 from '../assets/logo1.svg';
 import {COLORS} from '../constants';
 
 const Sidebar = () => {
 
+  const {userState} = React.useContext(CurrentUserContext);
+
   return (
     <StyledWrapper>
       <StyledLogo src={logo1} aria-label='cat logo'/>
       <StyledLink exact to={'/'}><StyledIcon size={24} icon={home} /> 
       Home</StyledLink>
-      <StyledLink to={'/currentuserprofile/tweets'} ><StyledIcon size={24} icon={gitlab} /> 
-      Profile</StyledLink>
+      {userState.currentUser?
+      <><StyledLink to={`/${userState.currentUser.handle}/tweets`} ><StyledIcon size={24} icon={gitlab} />Profile</StyledLink></> 
+      : <Loading/>}
+
+      
       <StyledLink to={'/notifications'}><StyledIcon size={24} icon={bell} /> 
       Notifications</StyledLink>
       <StyledLink to={'/bookmarks'}><StyledIcon size={24} icon={bookmark} />

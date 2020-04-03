@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Loading from './Loading';
 import GlobalStyles from './GlobalStyles';
 import Homefeed from './Homefeed';
 import Notifications from './Notifications';
@@ -33,7 +34,7 @@ const App = () => {
       <StyledWrapper>
         <BrowserRouter>
         <Sidebar />
-        {userState.currentStatus === 'loading'? <StyledDiv><h2>Loading...</h2></StyledDiv>:
+        {userState.currentStatus === 'loading'? <Loading />:
           <Switch>
             <Route exact path='/'>
               <Homefeed />
@@ -63,15 +64,15 @@ const StyledWrapper = styled.div`
 
 `;
 
-const StyledDiv = styled.div`
-  width: 100%;
-  margin-right: 5vw;
-  border-right: 1px solid lightgray;
-  h2 {
-    margin: .5rem 1rem ;
-    border-bottom: 1px solid lightgray;
-  }
-`;
+// const StyledDiv = styled.div`
+//   width: 100%;
+//   margin-right: 5vw;
+//   border-right: 1px solid lightgray;
+//   h2 {
+//     margin: .5rem 1rem ;
+//     border-bottom: 1px solid lightgray;
+//   }
+// `;
 
 
 export default App;

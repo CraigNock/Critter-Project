@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import {useParams} from 'react-router-dom';
 
+import Loading from '../Loading';
 import Tweet from '../Tweet';
+
 // import MediaFeed from './MediaFeed';
 // import LikesFeed from './LikesFeed';
 
 
-const TweetFeed = ({setRefresh}) => {
+const TweetFeed = () => {
   const {profileId} = useParams();
   const {filter} = useParams();
   // console.log('id ', profileId, filter);
@@ -34,13 +36,13 @@ const TweetFeed = ({setRefresh}) => {
   
   if (loading === 'loading') {
     return (
-      <StyledDiv><h2>Loading...</h2></StyledDiv>
+      <Loading />
       )
   } else {
     // console.log(feedData);
     return (
       <StyledDiv>
-        <Tweet data={feedData} filtero={filter} setRefresh={setRefresh} />
+        <Tweet data={feedData} filtero={filter} />
       </StyledDiv>
     );
   }

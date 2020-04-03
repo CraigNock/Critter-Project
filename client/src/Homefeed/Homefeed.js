@@ -28,7 +28,7 @@ const Homefeed = () => {
   
   if (loading === 'loading') {
     return (
-      <Loading />
+      <Loading size={50}/>
       )
   } else {
     // console.log(feedData);

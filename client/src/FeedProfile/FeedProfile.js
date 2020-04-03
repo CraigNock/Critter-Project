@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {BrowserRouter, Route, Switch, NavLink} from 'react-router-dom';
+import {Route, NavLink} from 'react-router-dom';
 
 import TweetFeed from './TweetFeed';
 
@@ -8,22 +8,19 @@ import TweetFeed from './TweetFeed';
 import {COLORS} from '../constants';
 
 const FeedProfile = ({profile}) => {
-  console.log('feedprofile ', profile);
+  // console.log('feedprofile ', profile);
 
   return(
     <>
-    <BrowserRouter>
       <SectionBar>
         <StyledLink to={`/${profile}/tweets`}>Tweets</StyledLink>
         <StyledLink to={`/${profile}/media`}>Media</StyledLink>
         <StyledLink to={`/${profile}/likes`}>Likes</StyledLink>
       </SectionBar>
-      <Switch>
-        <Route path='/:profileId/:filter'>
-          <TweetFeed />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+      <Route path='/:profileId/:filter'>
+        <TweetFeed />
+      </Route>
+      
     </>
   )
 };

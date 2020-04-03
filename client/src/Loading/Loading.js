@@ -6,12 +6,12 @@ import {box} from 'react-icons-kit/feather/box'
 // import {loader} from 'react-icons-kit/feather/loader'
 
 
-const Loading = () => {
+const Loading = ({size}) => {
 
 
   return(
     <Idiv>
-      <StyledIcon size={50}  icon={box} />
+      <StyledIcon size={size}  icon={box} />
     </Idiv>
   )
 };
@@ -32,7 +32,7 @@ const Idiv = styled.div`
 `;
 
 const StyledIcon = styled(Icon)`
-  margin: 2rem auto;
+  margin: 5% auto;
   animation: ${spinner} linear 1000ms infinite;
 `;
 

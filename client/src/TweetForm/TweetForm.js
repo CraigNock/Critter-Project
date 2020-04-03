@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {CurrentUserContext} from '../CurrentUserContext';
+import Loading from '../Loading';
+
 
 import {COLORS} from '../constants';
-
-
 
 
 const TweetForm = ({addTweetToFeed}) => {
@@ -16,6 +16,8 @@ const TweetForm = ({addTweetToFeed}) => {
   const [content, setContent] = React.useState('');
   const [count, setCount] = React.useState(280);
 
+  const [tweeting, setTweeting] = React.useState(false);
+
   const submitHandle = (ev) => {
     ev.preventDefault();
     if (count === 280) {
@@ -23,7 +25,7 @@ const TweetForm = ({addTweetToFeed}) => {
       return;
     } else {
       console.log('submit tweet');
-      
+      setTweeting(true);
       fetch('/api/tweet', {
         method: 'POST',
         headers: {
@@ -34,9 +36,8 @@ const TweetForm = ({addTweetToFeed}) => {
       })
       .then(data => data.json())
       .then(data => {
-        console.log(data);
         addTweetToFeed(data);
-        
+        setTweeting(false);
       })
     }
   };
@@ -73,7 +74,7 @@ const TweetForm = ({addTweetToFeed}) => {
               setContent('');
             }}
           >
-            Meow
+            {tweeting? <Loading size={20} /> : 'Meow'}
           </button>
         </StyledSubDiv>
       </StyledDiv>
@@ -124,13 +125,14 @@ const StyledSubDiv = styled.div`
     font-size: .75rem;
   }
   button {
+    width: 3.75rem;
+    height: 2rem;
     color: white;
     font-family: sans-serif;
     font-weight: bold;
     background: ${COLORS.primary};
     border: none;
     border-radius: 15px;
-    padding: .5rem;
     margin: 0 1rem;
     /* &:focus {
       outline: none;

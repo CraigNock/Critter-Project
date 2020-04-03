@@ -12,7 +12,7 @@ import Tweet from '../Tweet';
 const TweetFeed = () => {
   const {profileId} = useParams();
   const {filter} = useParams();
-  // console.log('id ', profileId, filter);
+  console.log('id ', profileId, filter);
 
   // const[filterTog, setFilterTog] = React.useState(false);
   // if(filter==='likes'){()=> setFilterTog(true)};
@@ -23,7 +23,8 @@ const TweetFeed = () => {
   const[feedData, setFeedData] = React.useState(null);
   
   React.useEffect(() => {
-    fetch((profileId === 'currentuserprofile')? '/api/me/home-feed' : `/api/${profileId}/feed`)
+    // (profileId === 'currentuserprofile')? '/api/me/home-feed' :
+    fetch(`/api/${profileId}/feed`)
         .then(data => data.json())
         .then(data => {
           setFeedData(data);
@@ -36,7 +37,7 @@ const TweetFeed = () => {
   
   if (loading === 'loading') {
     return (
-      <Loading />
+      <Loading size={50}/>
       )
   } else {
     // console.log(feedData);

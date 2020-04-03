@@ -9,7 +9,7 @@ import {mapPin} from 'react-icons-kit/feather/mapPin'
 import {calendar} from 'react-icons-kit/feather/calendar'
 
 import Loading from '../Loading';
-import {CurrentUserContext} from '../CurrentUserContext';
+// import {CurrentUserContext} from '../CurrentUserContext';
 import FeedProfile from '../FeedProfile';
 
 import {COLORS} from '../constants';
@@ -17,33 +17,25 @@ import {COLORS} from '../constants';
 
 const Profile = () => {
   const {profileId} = useParams();
-  console.log('profileid ',profileId);
-
-  const {userState} = React.useContext(CurrentUserContext);
+  // console.log('profileid ',profileId);
+  // const {userState} = React.useContext(CurrentUserContext);
   
   const [userProfile, setUserProfile] = React.useState(null);
 
   const [following, setFollowing] = React.useState('');
 
   React.useEffect(()=> {
-
-  // if (profileId !== 'currentuserprofile'){
     fetch( `/api/${profileId}/profile` )
     .then(data => data.json())
     .then(data => {
-      console.log('profile data ', data.profile);
-
+      // console.log('profile data ', data.profile);
       setUserProfile(data.profile);
       setFollowing(data.profile.isBeingFollowedByYou);
     });
-  // } else {
-  //   console.log('user profileee ', userProfile)
-  //   setUserProfile(userState.currentUser)
-  // }
+  
 // eslint-disable-next-line
   }, [profileId])
-  //activate on [profileId]?
-  // console.log('userProfile ',userProfile);
+  
 
   const toggleFollow = () => {
     // console.log('fol? ',following);
@@ -59,7 +51,7 @@ const Profile = () => {
       })
   };
 
-  console.log('test ', userProfile);
+  // console.log('test ', userProfile);
 
   return (
     <StyledDiv>
@@ -91,7 +83,7 @@ const Profile = () => {
       
       <FeedProfile profile={profileId} />
       </>
-      : <Loading />}
+      : <Loading size={50} />}
     </StyledDiv>
   );
 };

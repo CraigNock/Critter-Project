@@ -23,12 +23,15 @@ const Sidebar = () => {
     <StyledWrapper>
       <StyledLogo src={logo1} aria-label='cat logo'/>
       <StyledLink exact to={'/'}><StyledIcon size={24} icon={home} /> 
-      Home</StyledLink>
-      {userState.currentUser?
-      <><StyledLink to={`/${userState.currentUser.handle}/tweets`} ><StyledIcon size={24} icon={gitlab} />Profile</StyledLink></> 
-      : <Loading/>}
+      Home
+      </StyledLink>
 
-      
+      {userState.currentUser?
+      <StyledLink to={`/${userState.currentUser.handle}/tweets`} >
+        <StyledIcon size={24} icon={gitlab} />Profile
+      </StyledLink>
+      : <><Loading size={24}/></>}
+
       <StyledLink to={'/notifications'}><StyledIcon size={24} icon={bell} /> 
       Notifications</StyledLink>
       <StyledLink to={'/bookmarks'}><StyledIcon size={24} icon={bookmark} />

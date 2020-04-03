@@ -6,8 +6,6 @@ import {NavLink, useHistory} from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
 import {repeat} from 'react-icons-kit/feather/repeat'
 
-import {CurrentUserContext} from '../CurrentUserContext';
-
 
 import ActionBar from '../ActionBar';
 // import TweetDetails from '../TweetDetails';
@@ -18,14 +16,6 @@ const Tweet = ({data, filtero}) => {
   console.log('data ', info, filtero);
 
   let history = useHistory();
-
-  const {actions: {changeStatus}} = React.useContext(CurrentUserContext);
-
-  // const handleClick = (ev, profileId) => {
-  //   ev.preventDefault();
-  //   ev.stopPropagation();
-  //   useHistory().push(`/${profileId}/tweets`);
-  // }
 
   return (
     <>

@@ -34,7 +34,7 @@ const App = () => {
       <StyledWrapper>
         <BrowserRouter>
         <Sidebar />
-        {userState.currentStatus === 'loading'? <Loading />:
+        {userState.currentStatus === 'loading'? <Loading size={50} />:
           <Switch>
             <Route exact path='/'>
               <Homefeed />

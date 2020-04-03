@@ -4,18 +4,52 @@ import { Icon } from 'react-icons-kit';
 
 import {messageSquare} from 'react-icons-kit/feather/messageSquare'
 import {repeat} from 'react-icons-kit/feather/repeat'
-// import {heart} from 'react-icons-kit/feather/heart'
 import {upload} from 'react-icons-kit/feather/upload'
 
 import {COLORS} from '../constants';
 import LikeButton from '../LikeButton/LikeButton';
 
-const ActionBar = ({numLikes, numRetweets, isLiked, isRetweeted}) => {
-
+const ActionBar = ({tweetId, numLikes, numRetweets, isLiked , isRetweeted}) => {
+  // console.log('lik ', tweetId, isLiked, isRetweeted, numLikes,numRetweets );
   const [like, setLike] = React.useState(isLiked);
+  const [likeSum, setLikeSum] = React.useState(numLikes);
 
-  // const toggleLike = () => {
-  // };
+  const [retweet, setRetweet] = React.useState(isRetweeted);
+  const [retweetSum, setRetweetSum] = React.useState(numRetweets);
+
+  const toggleLike = () => {
+    setLike(!like);
+    fetch(`/api/tweet/${tweetId}/like`, { 
+      method: 'PUT',
+      body: JSON.stringify({like:!like}),
+      headers: {
+        'Accept': 'application/json',
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log('likres ',res, 'like ', !like);
+        !like? setLikeSum(n => n + 1) : setLikeSum(n => n - 1);
+      })
+  };
+//if have time, is more efficient, combine these toggle functions
+  const toggleRetweet = () => {
+    setRetweet(!retweet);
+    fetch(`/api/tweet/${tweetId}/retweet`, { 
+      method: 'PUT',
+      body: JSON.stringify({retweet:!retweet}),
+      headers: {
+        'Accept': 'application/json',
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log('retwres ',res, 'retw ', !retweet);
+        !retweet? setRetweetSum(n => n + 1) : setRetweetSum(n => n - 1);
+      })
+  };
 
   return (
     <StyledBar>
@@ -23,14 +57,15 @@ const ActionBar = ({numLikes, numRetweets, isLiked, isRetweeted}) => {
       <StyledRetweet 
         size={18} 
         icon={repeat} 
-        style={{color: isRetweeted? 'rgba(21,101,192 ,1)' : 'black'}} 
-      /><StyledSpan>{numRetweets}</StyledSpan>
+        style={{color: retweet? 'rgba(21,101,192 ,1)' : 'black'}}
+        onClick={()=>toggleRetweet()} 
+      /><StyledSpan>{retweetSum}</StyledSpan>
       {/* <StyledHeart size={18} icon={heart} /><span>{numLikes}</span> */}
       
       <LikeButton 
         isLiked={like}
-        onClick={()=>setLike(!like)}
-      /><span>{numLikes}</span>
+        onClick={()=>toggleLike()}
+      /><span>{likeSum}</span>
       
       <StyledIcon size={18} icon={upload} />
     </StyledBar>

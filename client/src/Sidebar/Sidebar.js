@@ -19,7 +19,7 @@ const Sidebar = () => {
       <StyledLogo src={logo1} aria-label='cat logo'/>
       <StyledLink exact to={'/'}><StyledIcon size={24} icon={home} /> 
       Home</StyledLink>
-      <StyledLink to={'/currentuserprofile/tweets'}><StyledIcon size={24} icon={gitlab} /> 
+      <StyledLink to={'/currentuserprofile/tweets'} ><StyledIcon size={24} icon={gitlab} /> 
       Profile</StyledLink>
       <StyledLink to={'/notifications'}><StyledIcon size={24} icon={bell} /> 
       Notifications</StyledLink>

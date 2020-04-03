@@ -16,23 +16,41 @@ import {COLORS} from '../constants';
 
 const Profile = () => {
   const {profileId} = useParams();
-  console.log(profileId);
+  console.log('profileid ',profileId);
 
   const {userState} = React.useContext(CurrentUserContext);
+
   const [userProfile, setUserProfile] = React.useState(userState.currentUser);
+  const [following, setFollowing] = React.useState('');
 
   React.useEffect(()=> {
     if (profileId !== 'currentuserprofile')
     fetch( `/api/${profileId}/profile` )
     .then(data => data.json())
     .then(data => {
-      console.log('profile data ', data.profile);
+      // console.log('profile data ', data.profile);
       setUserProfile(data.profile);
-      
+      setFollowing(data.profile.isBeingFollowedByYou);
     });
 // eslint-disable-next-line
-  }, [])
-  console.log(userProfile);
+  }, [userState.viewing])
+  //activate on [profileId]
+  console.log('userProfile ',userProfile);
+
+  const toggleFollow = () => {
+    // console.log('fol? ',following);
+    setFollowing(!following);
+    fetch(following? 
+      `/api/${userProfile.handle}/unfollow` 
+      :`/api/${userProfile.handle}/follow`
+      , { method: 'PUT' }
+      )
+      .then(res => res.json())
+      .then(res => {
+        // console.log('res ',res);
+      })
+  };
+
 
   return (
     <StyledDiv>
@@ -40,13 +58,16 @@ const Profile = () => {
       <Avatar src={userProfile.avatarSrc} alt='avatar'/>
       <InfoDiv>
         <ButtonDiv>
-          {userProfile.isBeingFollowedByYou? 
-          <button>Unfollow</button> : 
-          <button disabled={profileId === 'currentuserprofile'}>Follow</button>}
+          <button 
+            disabled={profileId === 'currentuserprofile'}
+            onClick={()=>toggleFollow()}
+          >
+            {following? 'Unfollow' : 'Follow'}
+          </button>
         </ButtonDiv>
         <Handle>
           <p>{userProfile.displayName}</p>
-          @{userProfile.handle} {userProfile.isFollowingYou? <span>Is following you</span> : null}
+          @{userProfile.handle} {userProfile.isFollowingYou? <span>Follows you</span> : null}
         </Handle>
         <p></p>
         <p>{userProfile.bio}</p>
@@ -54,7 +75,7 @@ const Profile = () => {
           <StyledIcon icon={mapPin} /> {userProfile.location} 
           <span><StyledIcon icon={calendar} /> Joined {format(new Date(userProfile.joined), 'MMMM · yyyy')}</span>
         </Locale>
-        <Follow><span>{1}</span> Following <span>{1}</span> Followers</Follow>
+        <Follow><span>{userProfile.numFollowing}</span> Following <span>{userProfile.numFollowers}</span> Followers</Follow>
       </InfoDiv>
       
       <FeedProfile profile={profileId} />
@@ -82,12 +103,14 @@ const Avatar = styled.img`
   top: 10rem;
   left: 1rem;
   height: 10rem;
+  border: 3px solid whitesmoke;
   border-radius: 50%;
 `;
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   button {
+    cursor: pointer;
     margin: 1.5rem 1rem;
     color: white;
     font-size: 1rem;
@@ -97,8 +120,8 @@ const ButtonDiv = styled.div`
     border: none;
     border-radius: 25px;
     padding: .75rem 1rem;
-    &:focus {
-      outline: none;
+    /* &:focus {
+      outline: none; */
     };
     &:disabled {
       opacity: .25;
@@ -111,7 +134,7 @@ const InfoDiv = styled.div`
 `;
 const Handle = styled.div`
   margin: .5rem 0;
-  font-style: italic;
+  /* font-style: italic; */
   font-size: 1rem;
   color: grey;
   p {
@@ -121,8 +144,9 @@ const Handle = styled.div`
     font-weight:bold;
   }
   span {
+    padding: .15rem .3rem;
     background: lightgray;
-    border-radius: 10px;
+    border-radius: 7px;
   }
 `;
 const Locale = styled.p`

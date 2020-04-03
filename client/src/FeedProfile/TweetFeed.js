@@ -7,7 +7,6 @@ import Tweet from '../Tweet';
 // import LikesFeed from './LikesFeed';
 
 
-
 const TweetFeed = () => {
   const {profileId} = useParams();
   const {filter} = useParams();
@@ -16,6 +15,8 @@ const TweetFeed = () => {
   // const[filterTog, setFilterTog] = React.useState(false);
   // if(filter==='likes'){()=> setFilterTog(true)};
   // console.log('id ', filter);
+  
+  
 
   const[loading, setLoading] = React.useState('loading');
   const[feedData, setFeedData] = React.useState(null);
@@ -28,7 +29,7 @@ const TweetFeed = () => {
           setLoading('idle');
         })
   // eslint-disable-next-line
-  }, []);
+  }, [profileId]);
 
   
   if (loading === 'loading') {

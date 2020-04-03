@@ -8,7 +8,7 @@ import TweetFeed from './TweetFeed';
 import {COLORS} from '../constants';
 
 const FeedProfile = ({profile}) => {
-  console.log('profile ', profile);
+  console.log('feedprofile ', profile);
 
   return(
     <>

@@ -5,6 +5,7 @@ export const CurrentUserContext = React.createContext(null);
 const initialUserState = {
   currentUser: null,
   currentStatus: 'loading',
+  viewing: 'currentuserprofile',
 }
 
 const reducer = (state, action) => {
@@ -18,6 +19,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentStatus: action.currentStatus,
+      };
+    case 'CHANGE-VIEWING':
+      return {
+        ...state,
+        viewing: action.viewing,
       };
   
     default:
@@ -42,6 +48,13 @@ export const CurrentUserProvider = ({children}) => {
       currentStatus: newStatus,
     })
   }
+  const changeViewing = (newViewing) => {
+    console.log('viewing ', newViewing);
+    dispatch({
+      type: 'CHANGE-VIEWING',
+      viewing: newViewing,
+    })
+  }
 
   // React.useEffect( () => {
   //   fetch('/api/me/profile')
@@ -61,6 +74,7 @@ export const CurrentUserProvider = ({children}) => {
         actions: {
           changeUser,
           changeStatus,
+          changeViewing,
         }
       }}
     >

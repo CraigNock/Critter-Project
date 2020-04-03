@@ -132,9 +132,9 @@ const StyledSubDiv = styled.div`
     border-radius: 15px;
     padding: .5rem;
     margin: 0 1rem;
-    &:focus {
+    /* &:focus {
       outline: none;
-    };
+    }; */
     &:disabled {
       opacity: .25;
     }

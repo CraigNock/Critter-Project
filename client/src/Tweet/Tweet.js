@@ -6,14 +6,11 @@ import {NavLink, useHistory} from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
 import {repeat} from 'react-icons-kit/feather/repeat'
 
-
 import ActionBar from '../ActionBar';
-// import TweetDetails from '../TweetDetails';
 
-
-const Tweet = ({data, filtero}) => {
+const Tweet = ({data}) => {
   let info = data;
-  console.log('data ', info, filtero);
+  console.log('data ', info);
 
   let history = useHistory();
 
@@ -22,7 +19,6 @@ const Tweet = ({data, filtero}) => {
     {info.tweetIds.map(id => {
       let details = info.tweetsById[id];
       let date = format(new Date(details.timestamp), 'MMM do');
-      // if(filtero==='likes'){ if (details.isLiked) {
       return(
       <div key={id}>
       {details.retweetFrom? 
@@ -36,8 +32,6 @@ const Tweet = ({data, filtero}) => {
           <Handle>
             <span tabIndex="0" onClick={ev => {
               ev.stopPropagation();
-              // changeStatus('loading'); 
-              
               history.push(`/${details.author.handle}/tweets`);
               }} 
             >

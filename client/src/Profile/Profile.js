@@ -8,8 +8,8 @@ import { Icon } from 'react-icons-kit';
 import {mapPin} from 'react-icons-kit/feather/mapPin'
 import {calendar} from 'react-icons-kit/feather/calendar'
 
+import ErrorPage from '../ErrorPage';
 import Loading from '../Loading';
-// import {CurrentUserContext} from '../CurrentUserContext';
 import FeedProfile from '../FeedProfile';
 
 import {COLORS} from '../constants';
@@ -18,22 +18,23 @@ import {COLORS} from '../constants';
 const Profile = () => {
   const {profileId} = useParams();
   // console.log('profileid ',profileId);
-  // const {userState} = React.useContext(CurrentUserContext);
-  
-  const [userProfile, setUserProfile] = React.useState(null);
+  const [loading, setLoading] = React.useState('loading');
 
+  const [userProfile, setUserProfile] = React.useState(null);
   const [following, setFollowing] = React.useState('');
 
   React.useEffect(()=> {
     fetch( `/api/${profileId}/profile` )
     .then(data => data.json())
     .then(data => {
-      // console.log('profile data ', data.profile);
+      console.log('profile data ', data);
       setUserProfile(data.profile);
       setFollowing(data.profile.isBeingFollowedByYou);
+      setLoading('idle');
+    }).catch(err => {
+      console.error('Caught error Profile: ', err);
+      setLoading('error');
     });
-  
-// eslint-disable-next-line
   }, [profileId])
   
 
@@ -51,41 +52,43 @@ const Profile = () => {
       })
   };
 
-  // console.log('test ', userProfile);
 
-  return (
-    <StyledDiv>
-    {userProfile? 
-    <>
-      <CoverImage src={userProfile.bannerSrc} alt='banner'/>
-      <Avatar src={userProfile.avatarSrc} alt='avatar'/>
-      <InfoDiv>
-        <ButtonDiv>
-          <button 
-            disabled={profileId === 'currentuserprofile'}
-            onClick={()=>toggleFollow()}
-          >
-            {following? 'Unfollow' : 'Follow'}
-          </button>
-        </ButtonDiv>
-        <Handle>
-          <p>{userProfile.displayName}</p>
-          @{userProfile.handle} {userProfile.isFollowingYou? <span>Follows you</span> : null}
-        </Handle>
-        <p></p>
-        <p>{userProfile.bio}</p>
-        <Locale>
-          <StyledIcon icon={mapPin} /> {userProfile.location} 
-          <span><StyledIcon icon={calendar} /> Joined {format(new Date(userProfile.joined), 'MMMM · yyyy')}</span>
-        </Locale>
-        <Follow><span>{userProfile.numFollowing}</span> Following <span>{userProfile.numFollowers}</span> Followers</Follow>
-      </InfoDiv>
-      
-      <FeedProfile profile={profileId} />
-      </>
-      : <Loading size={50} />}
-    </StyledDiv>
-  );
+  switch (loading) {
+    case 'loading':
+      return (<Loading size={50}/>);
+    case 'error':
+      return (<ErrorPage/>);
+    default:
+      return (
+        <StyledDiv>
+          <CoverImage src={userProfile.bannerSrc} alt='banner'/>
+          <Avatar src={userProfile.avatarSrc} alt='avatar'/>
+          <InfoDiv>
+            <ButtonDiv>
+              <button 
+                disabled={profileId === 'currentuserprofile'}
+                onClick={()=>toggleFollow()}
+              >
+                {following? 'Unfollow' : 'Follow'}
+              </button>
+            </ButtonDiv>
+            <Handle>
+              <p>{userProfile.displayName}</p>
+              @{userProfile.handle} {userProfile.isFollowingYou? <span>Follows you</span> : null}
+            </Handle>
+            <p></p>
+            <p>{userProfile.bio}</p>
+            <Locale>
+              <StyledIcon icon={mapPin} /> {userProfile.location} 
+              <span><StyledIcon icon={calendar} /> Joined {format(new Date(userProfile.joined), 'MMMM · yyyy')}</span>
+            </Locale>
+            <Follow><span>{userProfile.numFollowing}</span> Following <span>{userProfile.numFollowers}</span> Followers</Follow>
+          </InfoDiv>
+          
+          <FeedProfile profileId={profileId} />
+        </StyledDiv>
+      );
+  };
 };
 
 const StyledDiv = styled.div`

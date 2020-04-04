@@ -38,7 +38,7 @@ const TweetForm = ({addTweetToFeed}) => {
       .then(data => {
         addTweetToFeed(data);
         setTweeting(false);
-      })
+      }).catch(err => console.error('Caught error NewTweet: ', err));
     }
   };
 

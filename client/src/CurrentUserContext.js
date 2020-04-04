@@ -5,7 +5,7 @@ export const CurrentUserContext = React.createContext(null);
 const initialUserState = {
   currentUser: null,
   currentStatus: 'loading',
-  viewing: 'currentuserprofile',
+  showError: false,
 }
 
 const reducer = (state, action) => {
@@ -20,17 +20,16 @@ const reducer = (state, action) => {
         ...state,
         currentStatus: action.currentStatus,
       };
-    case 'CHANGE-VIEWING':
+    case 'SHOW-ERROR':
       return {
         ...state,
-        viewing: action.viewing,
+        showError: action.showError,
       };
   
     default:
       return;
   }
 }
-
 
 export const CurrentUserProvider = ({children}) => {
 
@@ -48,24 +47,13 @@ export const CurrentUserProvider = ({children}) => {
       currentStatus: newStatus,
     })
   }
-  const changeViewing = (newViewing) => {
-    console.log('viewing ', newViewing);
+  const changeShowError = (newValue) => {
+    // console.log('context error ', newValue);
     dispatch({
-      type: 'CHANGE-VIEWING',
-      viewing: newViewing,
+      type: 'SHOW-ERROR',
+      showError: newValue,
     })
   }
-
-  // React.useEffect( () => {
-  //   fetch('/api/me/profile')
-  //     .then(data => data.json())
-  //     .then(data => {
-  //       console.log('current user ', data.profile);
-  //       changeUser(data.profile);
-  //       changeStatus('idle');
-  //     })
-
-  // }, []);
 
   return(
     <CurrentUserContext.Provider
@@ -74,7 +62,7 @@ export const CurrentUserProvider = ({children}) => {
         actions: {
           changeUser,
           changeStatus,
-          changeViewing,
+          changeShowError,
         }
       }}
     >

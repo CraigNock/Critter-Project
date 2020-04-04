@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import {useParams} from 'react-router-dom';
 import {NavLink} from 'react-router-dom';
 
+import ErrorPage from '../ErrorPage';
 import Loading from '../Loading';
 import ActionBar from '../ActionBar';
 
@@ -11,6 +12,7 @@ import ActionBar from '../ActionBar';
 const TweetDetails = () => {
   const {tweetId} = useParams();
 
+  const [loading, setLoading] = React.useState('loading');
   const [details, setDetails] = React.useState(null);
 
   React.useEffect(()=> {
@@ -19,43 +21,50 @@ const TweetDetails = () => {
     .then(data => {
       // console.log('deet data ', data.tweet);
       setDetails(data.tweet);
-      
-    })
+      setLoading('idle');
+    }).catch(err => {
+      console.error('Caught error TweetDetails: ', err);
+      setLoading('error');
+    });
 // eslint-disable-next-line
   }, []);
   
-  return (
-    <>
-    {details===null? <Loading /> :
-    <StyledDivo>
-      <StyledNavLink exact to={'/'}><h2>{"🢘 Meow"}</h2></StyledNavLink>
-      <StyledDiv>
-          <SubDiv>
-          <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
-            <Handle>
-            <StyledNavLink to={`/${details.author.handle}/tweets`}><p>{details.author.displayName}</p></StyledNavLink>
-              @ {details.author.handle} 
-            </Handle>
-          </SubDiv>
-            <Content>
-              <p>{details.status}</p>
-              {details.media.map(thing => {
-                return <img key={thing.url} src={thing.url} alt='thing'/>
-              })}
-            </Content>
-            <StyledDate>{format(new Date(details.timestamp), 'HH:mm a · MMM do yyyy')} · Critter Web App</StyledDate>
-            <ActionBar
-              tweetId={details.id}
-              numLikes={details.numLikes}
-              numRetweets={details.numRetweets}
-              isliked={details.isLiked}
-              isRetweeted={details.isRetweeted}
-            />
-        </StyledDiv>
-    </StyledDivo>
-    }
-    </>
-  );
+
+  switch (loading) {
+    case 'loading':
+      return (<Loading size={50}/>);
+    case 'error':
+      return (<ErrorPage/>);
+    default:
+      return (
+        <StyledDivo>
+          <StyledNavLink exact to={'/'}><h2>{"🢘 Meow"}</h2></StyledNavLink>
+          <StyledDiv>
+              <SubDiv>
+              <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
+                <Handle>
+                <StyledNavLink to={`/${details.author.handle}/tweets`}><p>{details.author.displayName}</p></StyledNavLink>
+                  @ {details.author.handle} 
+                </Handle>
+              </SubDiv>
+                <Content>
+                  <p>{details.status}</p>
+                  {details.media.map(thing => {
+                    return <img key={thing.url} src={thing.url} alt='thing'/>
+                  })}
+                </Content>
+                <StyledDate>{format(new Date(details.timestamp), 'HH:mm a · MMM do yyyy')} · Critter Web App</StyledDate>
+                <ActionBar
+                  tweetId={details.id}
+                  numLikes={details.numLikes}
+                  numRetweets={details.numRetweets}
+                  isliked={details.isLiked}
+                  isRetweeted={details.isRetweeted}
+                />
+            </StyledDiv>
+        </StyledDivo>
+      )
+  };
 };
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import ErrorPage from './ErrorPage';
 import Loading from './Loading';
 import GlobalStyles from './GlobalStyles';
 import Homefeed from './Homefeed';
@@ -14,7 +15,7 @@ import Sidebar from './Sidebar';
 import {CurrentUserContext} from './CurrentUserContext';
 
 const App = () => {
-  const {userState, actions: {changeUser, changeStatus,}} = React.useContext(CurrentUserContext);
+  const {userState, actions: {changeUser, changeStatus,changeShowError}} = React.useContext(CurrentUserContext);
 
   React.useEffect( () => {
     fetch('/api/me/profile')
@@ -24,10 +25,17 @@ const App = () => {
         changeUser(data.profile);
         changeStatus('idle');
       })
+      .catch(err => {
+        console.error('Caught error App: ', err);
+        changeShowError(true);
+      });
 // eslint-disable-next-line
   }, []);
 
 
+  if (userState.showError) {
+    return ( <ErrorPage/> )
+  } else {
     return (
       <>
       <GlobalStyles />
@@ -39,7 +47,7 @@ const App = () => {
             <Route exact path='/'>
               <Homefeed />
             </Route>
-            <Route path='/:profileId/tweets'>
+            <Route path='/:profileId/'>
               <Profile />
             </Route>
             <Route path='/notifications'>
@@ -57,6 +65,7 @@ const App = () => {
       </StyledWrapper>
       </>
     );
+  }
 };
 
 const StyledWrapper = styled.div`

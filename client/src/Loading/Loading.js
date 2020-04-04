@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
+
 import { Icon } from 'react-icons-kit';
 import {box} from 'react-icons-kit/feather/box'
 // import {sun} from 'react-icons-kit/feather/sun'
@@ -7,15 +8,12 @@ import {box} from 'react-icons-kit/feather/box'
 
 
 const Loading = ({size}) => {
-
-
   return(
     <Idiv>
       <StyledIcon size={size}  icon={box} />
     </Idiv>
   )
 };
-
 
 const spinner = keyframes`
   from {
@@ -30,7 +28,6 @@ const Idiv = styled.div`
   text-align: center;
   width: 100%;
 `;
-
 const StyledIcon = styled(Icon)`
   margin: 5% auto;
   animation: ${spinner} linear 1000ms infinite;

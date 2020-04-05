@@ -9,8 +9,9 @@ import TweetFeed from './TweetFeed';
 import MediaFeed from './MediaFeed';
 import LikesFeed from './LikesFeed';
 
-
 import {COLORS} from '../constants';
+
+//get self feed if currentuser handle===profileid? use for likesfeed & media
 
 const FeedProfile = ({profileId}) => {
   // console.log('feedprofile ', profile);
@@ -29,7 +30,7 @@ const FeedProfile = ({profileId}) => {
         });
   }, [profileId]);
 
-  
+  // console.log('feedprofile feedData', feedData);
   switch (loading) {
     case 'loading':
       return (<Loading size={50}/>);

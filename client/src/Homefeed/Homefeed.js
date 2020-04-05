@@ -43,7 +43,7 @@ const Homefeed = () => {
         <StyledDiv>
           <h2>Home</h2>
           <TweetForm addTweetToFeed={addTweetToFeed} />
-          <Tweet data={feedData} filtero={false}/>
+          <Tweet data={feedData} />
         </StyledDiv>
       );
   };

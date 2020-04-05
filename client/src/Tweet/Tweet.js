@@ -9,8 +9,8 @@ import {repeat} from 'react-icons-kit/feather/repeat'
 import ActionBar from '../ActionBar';
 
 const Tweet = ({data}) => {
-  let info = data;
-  console.log('data ', info);
+  let info = data; //redundant, remove after troubleshooting
+  console.log('tweetdata ', info);
 
   let history = useHistory();
 
@@ -28,7 +28,7 @@ const Tweet = ({data}) => {
         <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
         <SubDiv>
           {/* <StyledNavLink to={`/tweet/${id}`}> */}
-          <TweetLink onClick={ev => history.push(`/tweet/${id}`)}>
+          <TweetLink tabIndex="0"    onClick={ev => history.push(`/tweet/${id}`)}>
           <Handle>
             <span tabIndex="0" onClick={ev => {
               ev.stopPropagation();
@@ -41,8 +41,8 @@ const Tweet = ({data}) => {
           </Handle>
             <Content>
               <p>{details.status}</p>
-              {details.media.map(thing => {
-                return <img key={thing.url} src={thing.url} alt='thing'/>
+              {details.media.map(mediathing => {
+                return <img key={mediathing.url} src={mediathing.url} alt='mediathing'/>
               })}
             </Content>
           </TweetLink>

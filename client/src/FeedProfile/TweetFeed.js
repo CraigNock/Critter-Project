@@ -9,10 +9,9 @@ import Tweet from '../Tweet';
 // import MediaFeed from './MediaFeed';
 // import LikesFeed from './LikesFeed';
 
-
 const TweetFeed = ({feedData}) => {
   // const {profileId} = useParams();
-  // console.log('id ', profileId);
+  // console.log('proftweetfeed', feedData);
 
   // const[loading, setLoading] = React.useState('loading');
   // const[feedData, setFeedData] = React.useState(null);

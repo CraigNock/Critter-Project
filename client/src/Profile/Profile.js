@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {useParams} from 'react-router-dom';
-// import {NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import { format } from 'date-fns';
 
 import { Icon } from 'react-icons-kit';
@@ -13,6 +13,7 @@ import Loading from '../Loading';
 import FeedProfile from '../FeedProfile';
 
 import {COLORS} from '../constants';
+
 
 
 const Profile = () => {
@@ -82,7 +83,16 @@ const Profile = () => {
               <StyledIcon icon={mapPin} /> {userProfile.location} 
               <span><StyledIcon icon={calendar} /> Joined {format(new Date(userProfile.joined), 'MMMM · yyyy')}</span>
             </Locale>
-            <Follow><span>{userProfile.numFollowing}</span> Following <span>{userProfile.numFollowers}</span> Followers</Follow>
+            
+              <Follow>
+                <StyledNavLink to={`/${profileId}/follow/following`}>
+                  <span>{userProfile.numFollowing}</span> Following 
+                </StyledNavLink>
+                <StyledNavLink to={`/${profileId}/follow/followers`}>
+                <span>{userProfile.numFollowers}</span> Followers
+                </StyledNavLink>
+              </Follow>
+            
           </InfoDiv>
           
           <FeedProfile profileId={profileId} />
@@ -168,6 +178,14 @@ const Locale = styled.p`
 const StyledIcon = styled(Icon)`
   vertical-align: 12%;
   
+`;
+
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+  &:hover{
+    text-decoration: underline;
+  }
 `;
 const Follow = styled.p`
   margin-bottom: 1rem;

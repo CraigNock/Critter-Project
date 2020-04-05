@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Following = () => {
+const Followers = () => {
 
   return(
     <>
-    follow
+    followers
     </>
   )
 };
 
 
-export default Following;
+export default Followers;

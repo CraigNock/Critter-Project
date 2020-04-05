@@ -11,6 +11,7 @@ import Bookmarks from './Bookmarks';
 import Profile from './Profile';
 import TweetDetails from './TweetDetails';
 import Sidebar from './Sidebar';
+import Following from './FollowPage';
 
 import {CurrentUserContext} from './CurrentUserContext';
 
@@ -32,7 +33,7 @@ const App = () => {
 // eslint-disable-next-line
   }, []);
 
-
+//Remember: Order of routes matters.
   if (userState.showError) {
     return ( <ErrorPage/> )
   } else {
@@ -47,8 +48,8 @@ const App = () => {
             <Route exact path='/'>
               <Homefeed />
             </Route>
-            <Route path='/:profileId/'>
-              <Profile />
+            <Route path='/tweet/:tweetId'>
+              <TweetDetails />
             </Route>
             <Route path='/notifications'>
               <Notifications />
@@ -56,8 +57,11 @@ const App = () => {
             <Route path='/bookmarks'>
               <Bookmarks />
             </Route>
-            <Route path='/tweet/:tweetId'>
-              <TweetDetails />
+            <Route path='/:profileId/follow'>
+              <Following />
+            </Route>
+            <Route path='/:profileId'>
+              <Profile />
             </Route>
           </Switch>
         }

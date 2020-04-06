@@ -4,7 +4,12 @@ import {useHistory} from 'react-router-dom';
 
 import {COLORS} from '../constants';
 
+import {CurrentUserContext} from '../CurrentUserContext';
+
+
 const FollowCard = ({follower}) => {
+  const { userState } = React.useContext(CurrentUserContext);
+  
   const [following, setFollowing] = React.useState(follower.isBeingFollowedByYou);
 
   let history = useHistory();
@@ -40,7 +45,7 @@ const FollowCard = ({follower}) => {
         </TweetLink>
         <ButtonDiv>
           <button 
-            disabled={follower.handle === 'currentuserprofile'}
+            disabled={follower.handle === userState.currentUser.handle}
             onClick={()=>toggleFollow()}
           >
             {following? 'Unfollow' : 'Follow'}
@@ -101,13 +106,10 @@ const ButtonDiv = styled.div`
     border: none;
     border-radius: 25px;
     padding: .5rem .75rem;
-    /* &:focus {
-      outline: none; */
-    };
     &:disabled {
       opacity: .25;
-    }
-  }
+    };
+  };
 `;
 
 

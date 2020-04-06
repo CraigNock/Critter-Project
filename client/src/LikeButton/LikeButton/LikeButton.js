@@ -16,11 +16,11 @@ const randy = (min, max) => {
 
 const range = n => Array.from(Array(n).keys());
 
-const LikeButton = ({ isLiked, onClick, size = 38 }) => {
+const LikeButton = ({ isLiked, onClick, onKeyDown, size = 38 }) => {
   const heartSize = size * 0.6;
   const confettiSize = size * 0.15;
   return (
-    <Wrapper onClick={onClick} style={{ width: size, height: size }}>
+    <Wrapper onClick={onClick} onKeyDown={onKeyDown} tabIndex="0" style={{ width: size, height: size }}>
       <TopDiv>
         {isLiked? ( <ScaleIn><Heart width={heartSize} isToggled={isLiked} /></ScaleIn> ) 
         : (<Heart width={heartSize} isToggled={isLiked} />)}

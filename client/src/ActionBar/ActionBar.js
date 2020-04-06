@@ -59,12 +59,16 @@ const ActionBar = ({tweetId, numLikes, numRetweets, isLiked , isRetweeted}) => {
         icon={repeat} 
         style={{color: retweet? 'rgba(21,101,192 ,1)' : 'black'}}
         onClick={()=>toggleRetweet()} 
+        tabIndex={0}
+        onKeyDown={ev => {if(ev.keyCode === 13)toggleRetweet()}}
       /><StyledSpan>{retweetSum}</StyledSpan>
       {/* <StyledHeart size={18} icon={heart} /><span>{numLikes}</span> */}
       
       <LikeButton 
         isLiked={like}
         onClick={()=>toggleLike()}
+        tabIndex={0}
+        onKeyDown={ev => {if(ev.keyCode === 13)toggleLike()}}
       /><span>{likeSum}</span>
       
       <StyledIcon size={18} icon={upload} />

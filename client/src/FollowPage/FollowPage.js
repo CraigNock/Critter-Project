@@ -6,8 +6,7 @@ import {useParams} from 'react-router-dom';
 import ErrorPage from '../ErrorPage';
 import Loading from '../Loading';
 
-import Followers from './Followers';
-import Following from './Following';
+import FollowList from './FollowList';
 
 import {COLORS} from '../constants';
 
@@ -37,12 +36,12 @@ const FollowPage = () => {
         <StyledLink to={`/${profileId}/follow/following`}>Following</StyledLink>
       </SectionBar>
       
-      <Route path='/:profileId/follow/followers'>
-        <Followers />
+      <Route path='/:profileId/follow/:type'>
+        <FollowList />
       </Route>
-      <Route path='/:profileId/follow/following'>
+      {/* <Route path='/:profileId/follow/following'>
         <Following />
-      </Route>
+      </Route> */}
     </StyledDivo>
   )
   }

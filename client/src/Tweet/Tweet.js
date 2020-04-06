@@ -28,12 +28,24 @@ const Tweet = ({data}) => {
         <Avatar><img src={details.author.avatarSrc} alt='avatar'/></Avatar>
         <SubDiv>
           {/* <StyledNavLink to={`/tweet/${id}`}> */}
-          <TweetLink tabIndex="0"    onClick={ev => history.push(`/tweet/${id}`)}>
-          <Handle>
-            <span tabIndex="0" onClick={ev => {
+          <TweetLink 
+            tabIndex="0" 
+            aria-label='view tweet' 
+            onClick={ev => history.push(`/tweet/${id}`)}
+            onKeyDown={(ev) => {if(ev.keyCode === 13) history.push(`/tweet/${id}`);}}
+            >
+          <Handle>  
+            <span 
+              tabIndex="0" 
+              aria-label='view user' 
+              onClick={ev => {
               ev.stopPropagation();
               history.push(`/${details.author.handle}/tweets`);
               }} 
+              onKeyPress={ev => {
+                ev.stopPropagation();
+                if(ev.keyCode === 13) history.push(`/${details.author.handle}/tweets`);  
+                }} 
             >
               {details.author.displayName}
             </span>

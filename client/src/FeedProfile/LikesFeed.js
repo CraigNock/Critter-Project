@@ -7,7 +7,7 @@ const LikesFeed = ({feedData}) => {
   let likesData = {...feedData};
   // for DEEP copy JSON.parse(JSON.stringify(feedData))
   //filter tweets for liked
-  const ids = likesData.tweetIds; //array
+  // const ids = likesData.tweetIds; //array
   const tweets = likesData.tweetsById; //object of objects, keys are ids
   
   //needs api that will grab feed for given user?? possibly filter at backend?

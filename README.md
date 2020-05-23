@@ -1,6 +1,4 @@
 
-![GitHub repo size](https://img.shields.io/github/repo-size/CraigNock/Critter-Project)
-
 # Critter Project
 
 This front-end focused project required creating a cat themed Twitter clone, "Critter".

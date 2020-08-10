@@ -140,11 +140,11 @@ const ButtonDiv = styled.div`
     padding: .75rem 1rem;
     /* &:focus {
       outline: none; */
-    };
+    /* }; */
     &:disabled {
       opacity: .25;
-    }
-  }
+    };
+  };
 `;
 const InfoDiv = styled.div`
   padding: 0 1rem;
